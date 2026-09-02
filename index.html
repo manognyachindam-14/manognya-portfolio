@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manognya Chindam — AI/ML Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0a0e;
+    --bg-elev: #131319;
+    --bg-elev-2: #17171f;
+    --text: #f1f0ec;
+    --text-dim: #98979f;
+    --text-faint: #55545c;
+    --border: #232229;
+    --border-bright: #33323b;
+    --accent: #7c93ff;
+    --accent-soft: rgba(124,147,255,0.12);
+    --mint: #6fd8b8;
+    --display: 'Manrope', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--accent);color:#0a0a0e;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 32px;}
+  @media (max-width:680px){ .wrap{padding:0 22px;} }
+
+  /* nav */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,10,14,.75);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px;}
+  .nav-mark{font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:-.01em;}
+  .nav-links{display:flex;gap:32px;font-size:13.5px;color:var(--text-dim);}
+  .nav-links a{transition:color .15s;}
+  .nav-links a:hover{color:var(--text);}
+  @media (max-width:680px){ .nav-links{display:none;} }
+
+  /* hero */
+  .hero{
+    position:relative;
+    padding:120px 0 100px;
+    overflow:hidden;
+  }
+  .aurora{
+    position:absolute;
+    top:-220px;left:50%;
+    width:900px;height:560px;
+    transform:translateX(-50%);
+    background:
+      radial-gradient(circle at 30% 40%, rgba(124,147,255,0.20), transparent 60%),
+      radial-gradient(circle at 70% 55%, rgba(111,216,184,0.13), transparent 55%);
+    filter:blur(60px);
+    pointer-events:none;
+    z-index:0;
+  }
+  @media (prefers-reduced-motion: no-preference){
+    .aurora{animation:drift 18s ease-in-out infinite alternate;}
+  }
+  @keyframes drift{
+    0%{transform:translateX(-52%) translateY(0);}
+    100%{transform:translateX(-48%) translateY(24px);}
+  }
+
+  .hero-inner{position:relative;z-index:1;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--mono);font-size:12px;color:var(--mint);
+    padding:6px 12px;border:1px solid var(--border-bright);border-radius:20px;
+    margin-bottom:28px;
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--mint);}
+
+  h1.hero-title{
+    font-family:var(--display);
+    font-weight:800;
+    font-size:clamp(38px,6.4vw,64px);
+    letter-spacing:-.02em;
+    line-height:1.06;
+    max-width:820px;
+    margin-bottom:24px;
+  }
+  h1.hero-title .grad{
+    background:linear-gradient(90deg,var(--accent),var(--mint));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+
+  .hero-sub{
+    font-size:clamp(16px,1.8vw,18.5px);
+    color:var(--text-dim);
+    max-width:600px;
+    margin-bottom:44px;
+  }
+
+  .stat-row{display:flex;flex-wrap:wrap;gap:44px;margin-bottom:48px;}
+  .stat .val{font-family:var(--display);font-weight:700;font-size:28px;color:var(--text);}
+  .stat .lbl{font-size:12.5px;color:var(--text-faint);margin-top:2px;}
+
+  .cta-row{display:flex;flex-wrap:wrap;gap:14px;}
+  .btn{
+    font-size:14px;font-weight:600;
+    padding:13px 24px;border-radius:8px;
+    display:inline-flex;align-items:center;gap:8px;
+    transition:all .15s;
+    border:1px solid transparent;
+  }
+  .btn-solid{background:var(--text);color:#0a0a0e;}
+  .btn-solid:hover{background:var(--accent);color:#fff;}
+  .btn-ghost{color:var(--text-dim);border-color:var(--border-bright);}
+  .btn-ghost:hover{color:var(--text);border-color:var(--text-dim);}
+
+  /* section shell */
+  section{padding:88px 0;border-top:1px solid var(--border);}
+  .sec-head{margin-bottom:48px;}
+  .sec-eyebrow{font-family:var(--mono);font-size:12px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;}
+  .sec-title{font-family:var(--display);font-weight:700;font-size:clamp(26px,3.4vw,34px);letter-spacing:-.01em;}
+
+  /* timeline */
+  .timeline{position:relative;padding-left:28px;}
+  .timeline::before{content:'';position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:var(--border-bright);}
+  .tl-item{position:relative;padding-bottom:42px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-dot{position:absolute;left:-28px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--border-bright);}
+  .tl-item.is-current .tl-dot{border-color:var(--accent);background:var(--accent);}
+  .tl-item.is-parallel .tl-dot{border-style:dashed;}
+  .tl-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin-bottom:8px;}
+  .tl-role{font-family:var(--display);font-weight:700;font-size:17.5px;}
+  .tl-org{color:var(--accent);font-size:14px;}
+  .tl-dates{font-family:var(--mono);font-size:11.5px;color:var(--text-faint);margin-left:auto;}
+  .tl-pill{font-family:var(--mono);font-size:10px;color:var(--mint);border:1px solid rgba(111,216,184,.35);padding:1px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.06em;}
+  .tl-item.is-parallel .tl-pill{color:var(--text-faint);border-color:var(--border-bright);}
+  .tl-item ul{list-style:none;font-size:14.5px;color:var(--text-dim);max-width:640px;}
+  .tl-item ul li{position:relative;padding-left:16px;margin-top:6px;}
+  .tl-item ul li::before{content:'';position:absolute;left:0;top:9px;width:5px;height:1px;background:var(--text-faint);}
+
+  /* projects */
+  .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  @media (max-width:700px){ .proj-grid{grid-template-columns:1fr;} }
+  .proj-card{
+    background:var(--bg-elev);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:26px;
+    transition:border-color .2s, transform .2s;
+  }
+  .proj-card:hover{border-color:var(--border-bright);transform:translateY(-2px);}
+  .proj-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+  .proj-status{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;padding:3px 9px;border-radius:20px;color:var(--mint);background:rgba(111,216,184,.1);}
+  .proj-status.wip{color:var(--text-faint);background:rgba(255,255,255,.04);}
+  .proj-name{font-family:var(--display);font-weight:700;font-size:19px;margin-bottom:10px;}
+  .proj-flow{font-family:var(--mono);font-size:11px;color:var(--text-faint);margin-bottom:14px;line-height:1.9;}
+  .proj-flow b{color:var(--text-dim);font-weight:500;}
+  .proj-desc{color:var(--text-dim);font-size:13.8px;margin-bottom:16px;}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;}
+  .tags span{font-family:var(--mono);font-size:10.5px;color:var(--text-faint);border:1px solid var(--border);padding:3px 9px;border-radius:6px;}
+
+  .archive-note{
+    margin-top:16px;padding:20px 24px;border:1px dashed var(--border-bright);border-radius:12px;
+    font-size:13.5px;color:var(--text-dim);
+  }
+  .archive-note b{color:var(--text);}
+
+  /* skills */
+  .skill-group{margin-bottom:26px;}
+  .skill-group:last-child{margin-bottom:0;}
+  .skill-cat{font-family:var(--mono);font-size:11.5px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;}
+  .skill-chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{font-size:13px;color:var(--text-dim);padding:6px 14px;border:1px solid var(--border);border-radius:20px;transition:border-color .15s,color .15s;}
+  .chip:hover{border-color:var(--accent);color:var(--text);}
+
+  /* credentials */
+  .cred-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+  @media (max-width:700px){ .cred-grid{grid-template-columns:1fr;} }
+  .edu-card{background:var(--bg-elev);border:1px solid var(--border);border-radius:12px;padding:26px;}
+  .edu-degree{font-family:var(--display);font-weight:700;font-size:18px;margin-bottom:4px;}
+  .edu-school{color:var(--accent);font-size:13.5px;margin-bottom:16px;}
+  .edu-row{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--text-dim);padding:8px 0;border-top:1px solid var(--border);}
+  .edu-row:first-of-type{border-top:none;}
+  .edu-row span:first-child{color:var(--text-faint);}
+  .edu-row span:last-child{text-align:right;}
+
+  .cert-list{list-style:none;}
+  .cert-list li{display:flex;align-items:baseline;gap:10px;padding:11px 0;border-top:1px solid var(--border);font-size:13.8px;color:var(--text-dim);}
+  .cert-list li:first-child{border-top:none;}
+  .cert-list li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--mint);flex-shrink:0;margin-top:6px;}
+
+  /* recommendations */
+  .rec-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  @media (max-width:700px){ .rec-grid{grid-template-columns:1fr;} }
+  .rec-card{
+    background:var(--bg-elev);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:26px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .rec-quote{
+    font-size:14.5px;
+    color:var(--text-dim);
+    line-height:1.7;
+  }
+  .rec-quote .mark{color:var(--accent);font-family:var(--display);font-size:22px;line-height:0;position:relative;top:6px;}
+  .rec-person{display:flex;align-items:center;gap:12px;margin-top:auto;}
+  .rec-avatar{
+    width:38px;height:38px;border-radius:50%;
+    background:linear-gradient(135deg,var(--accent),var(--mint));
+    flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--display);font-weight:700;font-size:14px;color:#0a0a0e;
+  }
+  .rec-name{font-size:13.5px;font-weight:600;color:var(--text);}
+  .rec-role{font-size:12px;color:var(--text-faint);}
+  .rec-card.is-placeholder{
+    border-style:dashed;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:var(--text-faint);
+    font-size:13px;
+  }
+
+  /* contact */
+  .contact-cta{text-align:left;}
+  .contact-title{font-family:var(--display);font-weight:800;font-size:clamp(30px,4.6vw,46px);letter-spacing:-.02em;margin-bottom:18px;max-width:600px;}
+  .contact-sub{color:var(--text-dim);font-size:15.5px;margin-bottom:36px;max-width:520px;}
+  .contact-links{display:flex;flex-wrap:wrap;gap:14px;}
+  .link-card{
+    display:flex;flex-direction:column;gap:4px;
+    background:var(--bg-elev);border:1px solid var(--border);border-radius:10px;
+    padding:16px 20px;min-width:200px;flex:1;
+    transition:border-color .15s;
+  }
+  .link-card:hover{border-color:var(--accent);}
+  .link-card .k{font-family:var(--mono);font-size:10.5px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.06em;}
+  .link-card .v{font-size:14px;color:var(--text);}
+
+  footer{padding:36px 0;font-family:var(--mono);font-size:11px;color:var(--text-faint);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;border-top:1px solid var(--border);}
+
+  [data-reveal]{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease;}
+  [data-reveal].in{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal]{opacity:1;transform:none;transition:none;}
+    .aurora{animation:none;}
+  }
+
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <span class="nav-mark">Manognya Chindam</span>
+    <div class="nav-links">
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#credentials">Credentials</a>
+      <a href="#recommendations">Recommendations</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="aurora"></div>
+  <div class="wrap hero-inner">
+    <div class="eyebrow"><span class="dot"></span>Open to AI / ML / Cloud DevOps roles</div>
+    <h1 class="hero-title">Building <span class="grad">agentic AI systems</span> on infrastructure I run myself.</h1>
+    <p class="hero-sub">AI/ML Engineer with production experience across cloud-native infrastructure — Kubernetes, Terraform, CI/CD — now designing multi-agent systems with human-in-the-loop approval and evaluation harnesses.</p>
+
+    <div class="stat-row">
+      <div class="stat"><div class="val">40%</div><div class="lbl">infra cost reduction</div></div>
+      <div class="stat"><div class="val">15+</div><div class="lbl">client integrations shipped</div></div>
+      <div class="stat"><div class="val">+19pt</div><div class="lbl">mastery lift, tutor agent</div></div>
+      <div class="stat"><div class="val">9.26</div><div class="lbl">GPA / 10</div></div>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-solid" href="mailto:manognachindam.1412@gmail.com">Email me</a>
+      <a class="btn btn-ghost" href="#projects">See projects</a>
+      <a class="btn btn-ghost" href="#experience">See experience</a>
+    </div>
+  </div>
+</header>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <div class="sec-eyebrow">Experience</div>
+      <div class="sec-title">Where I've built things</div>
+    </div>
+
+    <div class="timeline">
+
+      <div class="tl-item is-parallel" data-reveal>
+        <div class="tl-dot"></div>
+        <div class="tl-head">
+          <span class="tl-role">AI/ML &amp; Coding Tutor</span>
+          <span class="tl-org">Auriv · Smavy · Tutoroot · Ruvimo · Superprof</span>
+          <span class="tl-pill">Ongoing, parallel</span>
+          <span class="tl-dates">Jan 2022 → present</span>
+        </div>
+        <ul><li>Personalized AI/ML and coding/debugging tutoring for international students, running continuously alongside every role below.</li></ul>
+      </div>
+
+      <div class="tl-item" data-reveal>
+        <div class="tl-dot"></div>
+        <div class="tl-head">
+          <span class="tl-role">ML Engineer Intern</span>
+          <span class="tl-org">Coincent.ai</span>
+          <span class="tl-dates">Apr 2022 → Sep 2022</span>
+        </div>
+        <ul><li>Applied machine learning to structured datasets, supporting predictive models for business use cases.</li></ul>
+      </div>
+
+      <div class="tl-item" data-reveal>
+        <div class="tl-dot"></div>
+        <div class="tl-head">
+          <span class="tl-role">Salesforce Administration Intern</span>
+          <span class="tl-org">Trailhead by Salesforce</span>
+          <span class="tl-dates">Apr 2024 → Jun 2024</span>
+        </div>
+        <ul><li>Configured objects, workflows, and dashboards to match client requirements and tighten process consistency.</li></ul>
+      </div>
+
+      <div class="tl-item" data-reveal>
+        <div class="tl-dot"></div>
+        <div class="tl-head">
+          <span class="tl-role">Data Analyst Intern</span>
+          <span class="tl-org">Unified Mentor Pvt. Ltd.</span>
+          <span class="tl-dates">Jun 2024 → Sep 2024</span>
+        </div>
+        <ul><li>Ran exploratory and statistical analysis to surface insights that fed directly into business decisions.</li></ul>
+      </div>
+
+      <div class="tl-item" data-reveal>
+        <div class="tl-dot"></div>
+        <div class="tl-head">
+          <span class="tl-role">ML Engineer Intern</span>
+          <span class="tl-org">Innomatics Research Labs</span>
+          <span class="tl-dates">Sep 2024 → Feb 2025</span>
+        </div>
+        <ul><li>Cleaned and preprocessed large multi-source datasets in Python and SQL, lifting data quality and downstream model accuracy.</li></ul>
+      </div>
+
+      <div class="tl-item" data-reveal>
+        <div class="tl-dot"></div>
+        <div class="tl-head">
+          <span class="tl-role">DevOps Engineer Intern</span>
+          <span class="tl-org">MH Cognition</span>
+          <span class="tl-dates">Jan 2025 → Mar 2025</span>
+        </div>
+        <ul>
+          <li>Automated AWS and Azure provisioning with Terraform and Kubernetes, cutting manual setup for repeatable environments.</li>
+          <li>Built and maintained Jenkins CI/CD pipelines, including deployment scripting and cost-optimization work.</li>
+        </ul>
+      </div>
+
+      <div class="tl-item is-current" data-reveal>
+        <div class="tl-dot"></div>
+        <div class="tl-head">
+          <span class="tl-role">DevOps Engineer</span>
+          <span class="tl-org">Affinsys AI</span>
+          <span class="tl-pill">Current</span>
+          <span class="tl-dates">Apr 2025 → present</span>
+        </div>
+        <ul>
+          <li>Administer a beta Kubernetes cluster on OCI — deployments, scaling, and troubleshooting for pre-production workloads. Converted intern → full-time in October 2025.</li>
+          <li>Own Jenkins CI/CD pipelines, cutting average deployment time and speeding up incident detection.</li>
+          <li>Manage the Prometheus + ELK observability stack, improving infrastructure cost efficiency by 40%.</li>
+          <li>Translate requirements from 15+ clients across open finance, digital/WhatsApp banking, wallets, and agentic chatbots into infrastructure plans.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <div class="sec-eyebrow">Projects</div>
+      <div class="sec-title">What I'm building</div>
+    </div>
+
+    <div class="proj-grid">
+
+      <div class="proj-card" data-reveal>
+        <div class="proj-top"><span class="proj-name">K8s Ops Agent</span><span class="proj-status">Shipped</span></div>
+        <div class="proj-flow"><b>Signal</b> → <b>Triage agent</b> → <b>Cited diagnosis</b> → <b>Human approval</b> → <b>Remediation</b></div>
+        <p class="proj-desc">A multi-agent system that triages Kubernetes incidents from Prometheus/ELK signals, diagnoses root cause with cited evidence, and proposes remediations gated behind human approval before any write reaches the cluster. Scored against an eval harness for diagnosis and remediation accuracy, with its own tool-call latency and success rate instrumented in Prometheus.</p>
+        <div class="tags"><span>Python</span><span>LangGraph</span><span>FastAPI</span><span>Kubernetes</span><span>Prometheus</span><span>ELK</span><span>Docker</span></div>
+      </div>
+
+      <div class="proj-card" data-reveal>
+        <div class="proj-top"><span class="proj-name">AI Tutor Agent</span><span class="proj-status">Shipped</span></div>
+        <div class="proj-flow"><b>Student state</b> → <b>BKT + SM-2</b> → <b>Skill selection</b> → <b>Socratic hints</b></div>
+        <p class="proj-desc">An adaptive tutoring agent combining Bayesian Knowledge Tracing and SM-2 spaced repetition to drive personalized skill selection, with a Socratic hint agent constrained in code to never reveal answers outright. A synthetic-student eval harness measured a 19-point true-mastery lift over a static-curriculum baseline on an identical practice budget.</p>
+        <div class="tags"><span>Python</span><span>LangGraph</span><span>FastAPI</span><span>Bayesian Knowledge Tracing</span></div>
+      </div>
+
+      <div class="proj-card" data-reveal>
+        <div class="proj-top"><span class="proj-name">Enterprise Knowledge Assistant</span><span class="proj-status wip">In progress</span></div>
+        <div class="proj-flow"><b>Documents</b> → <b>Chunk + embed</b> → <b>Semantic search</b> → <b>Cited answer</b></div>
+        <p class="proj-desc">A retrieval-augmented generation system for document Q&amp;A — ingestion, chunking, embedding, and semantic search, returning answers with citations back to source. Being containerized for portable deployment.</p>
+        <div class="tags"><span>Python</span><span>FastAPI</span><span>LangChain</span><span>OpenAI</span><span>Chroma</span><span>Docker</span></div>
+      </div>
+
+      <div class="proj-card" data-reveal>
+        <div class="proj-top"><span class="proj-name">Multi-Agent Banking Assistant</span><span class="proj-status wip">In progress</span></div>
+        <div class="proj-flow"><b>Query</b> → <b>Agent mesh</b> → <b>SQL + APIs</b> → <b>Grounded reply</b></div>
+        <p class="proj-desc">A multi-agent system handling customer banking queries — loans, policy questions, fraud checks — with LangGraph orchestrating tool-calling agents that query a SQL database and external APIs.</p>
+        <div class="tags"><span>Python</span><span>LangGraph</span><span>FastAPI</span><span>OpenAI</span><span>PostgreSQL</span></div>
+      </div>
+
+      <div class="proj-card" data-reveal>
+        <div class="proj-top"><span class="proj-name">Customer Churn Prediction Platform</span><span class="proj-status wip">In progress</span></div>
+        <div class="proj-flow"><b>Features</b> → <b>Model + MLflow</b> → <b>Live prediction</b></div>
+        <p class="proj-desc">An end-to-end churn pipeline: feature engineering, model training, and experiment tracking in MLflow, served through a FastAPI endpoint for real-time prediction, containerized with Docker.</p>
+        <div class="tags"><span>Python</span><span>Scikit-learn</span><span>XGBoost</span><span>MLflow</span><span>FastAPI</span><span>Docker</span></div>
+      </div>
+
+    </div>
+
+    <div class="archive-note" data-reveal>
+      <b>Earlier academic builds:</b> Autonomous Vehicle Object Detection (YOLO, Faster R-CNN, LIDAR) for real-time AV perception, and a Satellite Image Classification study (SVM, KNN, CNN, SOM) comparing models for land-use analysis.
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <div class="sec-eyebrow">Skills</div>
+      <div class="sec-title">What I work with</div>
+    </div>
+
+    <div data-reveal>
+      <div class="skill-group">
+        <div class="skill-cat">AI / ML</div>
+        <div class="skill-chips">
+          <span class="chip">Python</span><span class="chip">Machine Learning</span><span class="chip">NLP</span><span class="chip">Data Mining</span><span class="chip">Probability &amp; Statistics</span><span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">Scikit-learn</span><span class="chip">TensorFlow</span><span class="chip">PyTorch</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-cat">Generative AI</div>
+        <div class="skill-chips">
+          <span class="chip">LangChain</span><span class="chip">LangGraph</span><span class="chip">OpenAI API</span><span class="chip">Azure OpenAI</span><span class="chip">RAG</span><span class="chip">Prompt Engineering</span><span class="chip">Chroma</span><span class="chip">pgvector</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-cat">MLOps</div>
+        <div class="skill-chips">
+          <span class="chip">MLflow</span><span class="chip">FastAPI</span><span class="chip">Docker</span><span class="chip">Model Deployment</span><span class="chip">Experiment Tracking</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-cat">Cloud / DevOps</div>
+        <div class="skill-chips">
+          <span class="chip">AWS</span><span class="chip">Azure</span><span class="chip">OCI</span><span class="chip">Kubernetes</span><span class="chip">Terraform</span><span class="chip">Jenkins</span><span class="chip">Ansible</span><span class="chip">Prometheus</span><span class="chip">ELK</span><span class="chip">Trivy</span><span class="chip">HashiCorp Vault</span><span class="chip">Chef</span><span class="chip">Git</span><span class="chip">Linux</span><span class="chip">GitHub Actions</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-cat">Dev &amp; Data</div>
+        <div class="skill-chips">
+          <span class="chip">R</span><span class="chip">React</span><span class="chip">Django</span><span class="chip">Flutter</span><span class="chip">SQL</span><span class="chip">MySQL</span><span class="chip">PostgreSQL</span><span class="chip">MS Excel</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-cat">Domain</div>
+        <div class="skill-chips">
+          <span class="chip">Open Finance</span><span class="chip">Digital/WhatsApp Banking</span><span class="chip">Wallets</span><span class="chip">Agentic Chatbots</span><span class="chip">Requirements Gathering</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="credentials">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <div class="sec-eyebrow">Credentials</div>
+      <div class="sec-title">Education &amp; certifications</div>
+    </div>
+
+    <div class="cred-grid" data-reveal>
+      <div class="edu-card">
+        <div class="edu-degree">BTech, Computer Science — AI &amp; Machine Learning</div>
+        <div class="edu-school">Malla Reddy University, Hyderabad</div>
+        <div class="edu-row"><span>Duration</span><span>2021 – 2025</span></div>
+        <div class="edu-row"><span>GPA</span><span>9.26 / 10</span></div>
+        <div class="edu-row"><span>Coursework</span><span style="text-align:right;max-width:60%;">ML, NLP, Statistics, Data Analytics, Data Mining, Data Structures</span></div>
+      </div>
+
+      <ul class="cert-list">
+        <li>Microsoft Certified: Azure AI Fundamentals</li>
+        <li>Salesforce Certified Administrator</li>
+        <li>Cambridge B2 Level Certified</li>
+        <li>Business Administration Specialist</li>
+        <li>SAS Categorical Analysis</li>
+        <li>Microsoft Power BI</li>
+        <li>The Science of Well-Being</li>
+        <li>Exploratory Data Analysis for Machine Learning</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="recommendations">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <div class="sec-eyebrow">Recommendations</div>
+      <div class="sec-title">What people I've worked with say</div>
+    </div>
+
+    <div class="rec-grid" data-reveal>
+      <!-- REC_CARD_START — duplicate this block for each recommendation -->
+      <div class="rec-card">
+        <div class="rec-quote"><span class="mark">“</span>Quote goes here — swap in the actual recommendation text.<span class="mark">”</span></div>
+        <div class="rec-person">
+          <div class="rec-avatar">XX</div>
+          <div>
+            <div class="rec-name">Name Surname</div>
+            <div class="rec-role">Role · Company</div>
+          </div>
+        </div>
+      </div>
+      <!-- REC_CARD_END -->
+
+      <div class="rec-card is-placeholder">
+        Share the recommendation text and I'll drop it in here.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="border-bottom:none;">
+  <div class="wrap contact-cta" data-reveal>
+    <div class="sec-eyebrow">Contact</div>
+    <div class="contact-title">Let's build something worth shipping.</div>
+    <p class="contact-sub">Open to AI Engineer, ML Engineer, and Cloud DevOps roles. Based in Hyderabad, India — happy to work remote or relocate.</p>
+
+    <div class="contact-links">
+      <a class="link-card" href="mailto:manognachindam.1412@gmail.com">
+        <span class="k">Email</span><span class="v">manognachindam.1412@gmail.com</span>
+      </a>
+      <a class="link-card" href="tel:+917330858640">
+        <span class="k">Phone</span><span class="v">+91 73308 58640</span>
+      </a>
+      <a class="link-card" href="#" onclick="return false;">
+        <span class="k">GitHub</span><span class="v">github.com/manognya-chindam</span>
+      </a>
+      <a class="link-card" href="#" onclick="return false;">
+        <span class="k">LinkedIn</span><span class="v">linkedin.com/in/manognya-chindam</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex;justify-content:space-between;width:100%;flex-wrap:wrap;gap:8px;">
+    <span>Manognya Chindam · manognyachindam.com</span>
+    <span id="uptime">—</span>
+  </div>
+</footer>
+
+<script>
+  const start = new Date('2022-01-01T00:00:00');
+  function uptime(){
+    const days = Math.floor((Date.now() - start.getTime()) / 86400000);
+    document.getElementById('uptime').textContent = `Building for ${(days/365).toFixed(1)} years`;
+  }
+  uptime();
+  setInterval(uptime, 60000);
+
+  if ('IntersectionObserver' in window){
+    const els = document.querySelectorAll('[data-reveal]');
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+    }, {threshold:0.12});
+    els.forEach(el=>io.observe(el));
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el=>el.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>
