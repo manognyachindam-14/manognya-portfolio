@@ -429,7 +429,7 @@ function updPanel(){const p=document.getElementById('tt').children[1];let h='';O
  h+='<div class="r" style="font:11px var(--mono);color:var(--faint)">BKT: P(learn)=0.15, slip=0.10, guess=0.20</div>';p.innerHTML=h}
 tInit();
 
-const CHAT_URL='portfolio-chat.manognachindam-1412.workers.dev';
+const CHAT_URL='https://portfolio-chat.manognachindam-1412.workers.dev';
 const hist=[],cl=document.getElementById('cl'),ci=document.getElementById('ci');
 function msg(r,t){const d=document.createElement('div');d.className='m '+r;d.textContent=t;cl.appendChild(d);cl.scrollTop=cl.scrollHeight;return d}
 async function ask(q){q=q.trim();if(!q)return;ci.value='';document.getElementById('cs').remove();msg('user',q);hist.push({role:'user',content:q});
