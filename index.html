@@ -435,7 +435,7 @@ function msg(r,t){const d=document.createElement('div');d.className='m '+r;d.tex
 async function ask(q){q=q.trim();if(!q)return;ci.value='';document.getElementById('cs').remove();msg('user',q);hist.push({role:'user',content:q});
  const w=msg('bot','Thinking…');
  try{if(CHAT_URL.startsWith('PASTE'))throw new Error('chat backend URL not set yet');const r=await fetch(CHAT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:hist})});
-  let j={};try{j=await r.json()}catch(_){}if(!r.ok||!j.reply){const m={404:'wrong worker URL',403:'blocked by server',500:'API key not found (chat_config.php)',502:'Anthropic rejected the request (check key, billing, model)',429:'rate limit'};throw new Error(r.status+': '+(m[r.status]||j.error||'server error'))}w.textContent=j.reply;hist.push({role:'assistant',content:j.reply})}
+  let j={};try{j=await r.json()}catch(_){}if(!r.ok||!j.reply){const m={404:'wrong worker URL',403:'blocked by server',500:'API key not found (chat_config.php)',502:'AI service error',429:'rate limit'};throw new Error(r.status+': '+(m[r.status]||j.error||'server error')+(j.detail?' - '+j.detail:''))}w.textContent=j.reply;hist.push({role:'assistant',content:j.reply})}
  catch(e){w.textContent='The assistant is unavailable right now ('+(e.message&&e.message!=='Failed to fetch'?e.message:'could not reach the chat service')+'). Please email manognachindam.1412@gmail.com.';hist.pop()}}
 document.getElementById('cb').onclick=()=>ask(ci.value);
 ci.onkeydown=e=>{if(e.key==='Enter')ask(ci.value)};
